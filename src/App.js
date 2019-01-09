@@ -1,28 +1,40 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Movie from "./Movie";
-
-const movies = [
-  {
-    id: 1,
-    title: "Star Wars"
-  },
-  {
-    id: 2,
-    title: "Charmed"
-  },
-  {
-    id: 3,
-    title: "Vice"
-  }
-];
+import MovieList from "./feature/Movies/MovieList";
 
 class App extends Component {
+  state = {
+    movies: [],
+    isLoading: false
+  };
+  async componentDidMount() {
+    this.setState(() => {
+      return {
+        movies: [],
+        isLoading: true
+      };
+    });
+    try {
+      const res = await fetch(
+        "https://api.themoviedb.org/3/discover/movie?api_key=8db53c267e86f9777540d3025e5266c6&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1"
+      );
+      const jsonMovies = await res.json();
+
+      const movies = jsonMovies.results;
+
+      this.setState(() => {
+        return {
+          movies,
+          isLoading: false
+        };
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
   render() {
-    const renderMovies = movies.map(movie => (
-      <Movie key={movie.id} movie={movie} />
-    ));
+    const { movies, isLoading } = this.state;
     return (
       <React.Fragment>
         <header className="App-header text-center">
@@ -30,7 +42,7 @@ class App extends Component {
         </header>
         <div className="container">
           <h1>Movies</h1>
-          {renderMovies}
+          {isLoading ? <p>Loading ....</p> : <MovieList movies={movies} />}
         </div>
       </React.Fragment>
     );
