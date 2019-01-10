@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Movies from "./feature/Movies/Movies";
 import "./App.css";
@@ -8,16 +8,18 @@ import logo from "./logo.svg";
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-        <header className="App-header text-center">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        <Router>
+      <Router>
+        <React.Fragment>
+          <header className="App-header text-center">
+            <Link to="/">
+              <img src={logo} className="App-logo" alt="logo" />
+            </Link>
+          </header>
           <Switch>
             <Route exact path="/" component={Movies} />
           </Switch>
-        </Router>
-      </React.Fragment>
+        </React.Fragment>
+      </Router>
     );
   }
 }
