@@ -35,8 +35,7 @@ class Movies extends Component {
     const { movies, isLoading } = this.state;
     return (
       <React.Fragment>
-        <div className="container">
-          <h1>Movies</h1>
+        <div>
           {isLoading ? <p>Loading ....</p> : <MovieList movies={movies} />}
         </div>
       </React.Fragment>
