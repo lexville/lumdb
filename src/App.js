@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Movies from "./feature/Movies/Movies";
+import MovieDetailed from "./feature/Movies/MovieDetailed";
 import "./App.css";
 import logo from "./logo.svg";
 
@@ -17,6 +18,7 @@ class App extends Component {
           </header>
           <Switch>
             <Route exact path="/" component={Movies} />
+            <Route path="/movie/:id" component={MovieDetailed} />
           </Switch>
         </React.Fragment>
       </Router>
